@@ -1,6 +1,38 @@
 /*
 Basic of  Time Complexity 
 1. https://www.cpsacademy.io/blog/complexity-analysis-a-to-z--interview-crack--secret-weapon
+
+Easy to understand :
+
+Pattern 1: একটা Loop → O(n) --> সোজা — loop n বার ঘোরে, তাই O(n)।
+Pattern 2: একটা Loop এর ভিতরে আরেকটা Loop → O(n^2) --> nested loop, তাই O(n^2)।
+Pattern 3: Loop Variable অর্ধেক হচ্ছে বা দ্বিগুণ হচ্ছে → O(log n) --> log n, কারণ প্রতি iteration এ search space অর্ধেক হচ্ছে।
+Pattern 4: পাশাপাশি blocks → যোগ করো, বড়টা রাখো
+
+
+ Cheatsheet:
+
+ Complexity Ranking (ছোট → বড়)
+ O(1) → O(log n) → O(√n) → O(n) → O(n log n) → O(n²) → O(n³) → O(2ⁿ) → O(n!)
+
+ Code Pattern দেখো → Complexity বলো
+ Single loop (0 to n)                    → O(n)
+Nested loop (both 0 to n)              → O(n²)
+Triple nested loop                      → O(n³)
+Loop variable halving (i /= 2)         → O(log n)
+Loop variable doubling (i *= 2)        → O(log n)
+Two nested loops, inner is log         → O(n log n)
+Recursion: 2 calls, size n-1           → O(2ⁿ)
+Recursion: 1 call, size n/2            → O(log n)
+Recursion: 2 calls, size n/2 + O(n)   → O(n log n)
+
+Problem এ n দেখেই বুঝে যাও কী লাগবে
+n ≤ 10-12       → O(n!) okay
+n ≤ 20-25       → O(2ⁿ) okay
+n ≤ 10⁴         → O(n²) okay
+n ≤ 10⁵-10⁶    → O(n log n) দরকার
+n ≤ 10⁸         → O(n) দরকার
+n > 10⁸         → O(log n) বা O(1) দরকার
 */
 #include <bits/stdc++.h>
 using namespace std;
