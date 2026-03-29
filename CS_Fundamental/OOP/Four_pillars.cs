@@ -166,6 +166,11 @@ s.Draw(); // circle
 Encapsulation + Abstraction → Hide data + logic
 Inheritance + Polymorphism → Reuse + flexibility
 
+👉 Polymorphism depends on Inheritance
+
+✔ First inheritance লাগে
+✔ তারপর overriding করে polymorphism হয়
+
 -----------------------------------------
 ⚠️ Common Mistakes
 -----------------------------------------
