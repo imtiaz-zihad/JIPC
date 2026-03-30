@@ -19,6 +19,7 @@ Importnt link:
 3. Inheritance
 4. Polymorphism
 
+
 -----------------------------------------
 🧠 1. Abstraction (Hide complexity)
 -----------------------------------------
@@ -31,6 +32,7 @@ Real Life:
 
 Code:
 */
+
 
 abstract class Vehicle
 {
@@ -158,6 +160,51 @@ s.Draw(); // circle
 👉 Key Point:
 - Same function name
 - Different output
+*/
+
+/* 
+//======= Interface   ========//
+
+ Interface → Contract (only method signature, no implementation)
+ Abstract class → Partial implementation (some methods with body, some without)
+
+
+Difference between Interface and Abstract class:
+1. Methods:
+   - Interface: No implementation (only signatures)
+   - Abstract class: Can have both abstract and concrete methods
+2. Inheritance:
+   - Interface: Multiple inheritance allowed (a class can implement multiple interfaces)
+    - Abstract class: Single inheritance (a class can inherit
+        only one abstract class)
+
+3. Use case:
+   - Interface: When you want to use all methods in different classes
+   - Abstract class: When you want to use some methods & some write in child class
+*/
+interface IVehicle
+{
+    void Start();
+    void Stop();
+
+}
+
+class Bike : IVehicle
+{
+    public void Start()
+    {
+        Console.WriteLine("Bike starts with kick");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine("Bike stops with brake");
+    }
+}
+
+
+
+/*
 
 -----------------------------------------
 🔗 How They Work Together
@@ -170,6 +217,8 @@ Inheritance + Polymorphism → Reuse + flexibility
 
 ✔ First inheritance লাগে
 ✔ তারপর overriding করে polymorphism হয়
+
+
 
 -----------------------------------------
 ⚠️ Common Mistakes
@@ -204,7 +253,7 @@ Q2: Difference between Abstraction & Encapsulation?
 
 👉 Abstraction:
 - Hide complexity
-- Focus on WHAT
+- Focus on WHAT to do
 
 👉 Encapsulation:
 - Hide data
@@ -245,9 +294,10 @@ Q6: Can we create object of abstract class?
 
 ---
 
-Q7: What is method overriding?
+Q7: What is method overriding & method overloading?
 
-👉 Child class changes parent method behavior
+👉 Method Overriding: Child class changes parent method behavior
+👉 Method Overloading: Same method name, different parameters
 
 ---
 
