@@ -346,13 +346,13 @@ KISS → Keep logic simple
 
 12. Real-life example of DRY?
 Answer: Using a single function to print user info instead of repeating code multiple times.
-*/
+
 
 //////////////////////////////////////////////////////
 // ❓ More Interview Questions & Answers
 //////////////////////////////////////////////////////
 
-/*
+
 13. What is code maintainability?
 Answer: It refers to how easily code can be modified, updated, or fixed in the future.
 
