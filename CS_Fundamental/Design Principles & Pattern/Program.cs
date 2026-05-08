@@ -145,8 +145,14 @@ public class ReportSaver
 }
 
 
-// O - Open/Closed Principle (OCP) -> Software should be open for extension but closed for modification.
+// O - Open/Closed Principle (OCP) -> Software should be open for extension but closed for modification.It is use for multiple behavior without changing existing code.
+/*
+Advantages:
+1. Flexibility: New features can be added without modifying existing code.
+2. Maintainability: Existing code remains stable and easier to maintain since it is not altered.
+3. Scalability: The system can grow and evolve without requiring significant changes to existing code.
 
+*/
 
 // Bad Example ❌
 public class Discount
@@ -174,6 +180,7 @@ public class RegularDiscount : DiscountBase
 {
     public override double GetDiscount() => 5;
 }
+
 
 
 // L - Liskov Substitution Principle (LSP) -> Subtypes must be substitutable for their base types without altering the correctness of the program.
@@ -210,15 +217,15 @@ public class OstrichFixed : BirdBase
     // no Fly method
 }
 
-//////////////////////////////////////////////////////
-// I - Interface Segregation Principle (ISP)
+
+// I - Interface Segregation Principle (ISP) -> Clients should not be forced to depend on interfaces they do not use. It is use for creating specific interfaces for different clients instead of one general interface.
 
 // Bad Example ❌
 public interface IWorker
 {
     void Work();
     void Eat();
-}
+} 
 
 public class Robot : IWorker
 {
@@ -252,8 +259,8 @@ public class RobotFixed : IWork
     public void Work() { }
 }
 
-//////////////////////////////////////////////////////
-// D - Dependency Inversion Principle (DIP)
+
+// D - Dependency Inversion Principle (DIP) --> High-level modules should depend on abstractions, not concrete classes. It is use for reducing coupling between classes and making code more flexible and testable.
 
 // Bad Example ❌
 public class LightBulb

@@ -5,6 +5,7 @@ The STL provides a collection of template classes and functions for data structu
 Resources:
 1. C++ Reference: https://en.cppreference.com/w/cpp
 2. STL Documentation: https://www.cpsacademy.io/blog/c-stl-complete-guide-beginner-to-advanced--
+3. Interview Preparation: https://docs.google.com/document/d/1Qr4kYNtUXBadCZ81rH6vJy5qdf_nXG7lOBrUaXUgxyo/edit?tab=t.0
 */
 
 #include <bits/stdc++.h>
