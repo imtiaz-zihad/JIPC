@@ -9,7 +9,7 @@ public class Singleton
 
     public static Singleton GetInstance()
     {
-        if(_instance == null)
+        if (_instance == null)
         {
             _instance = new Singleton();
         }
@@ -154,7 +154,7 @@ public class NotificationFactory
             "Email" => new EmailNotification(),
             "SMS" => new SMSNotification(),
             _ => throw new ArgumentException("Invalid notification type")
-        };   
+        };
     }
 }
 
@@ -169,5 +169,128 @@ class Program
     }
 }
 
- 
- 
+/*
+4.Abstract Factory Pattern → Creates families of related objects without defining concrete classes.
+
+Usecase: Cross-platform UI toolkit, Database access layer, Theme factory, Vehicle factory, Furniture factory.
+Advantages: Encapsulation, Flexibility, Reusability, Separation of concerns, Testability.
+Disadvantages: Increased complexity, Overhead, Learning curve, Not suitable for simple object creation.
+*/
+
+public interface IFactory
+{
+    IButton CreateButton();
+    ICheckbox CreateCheckbox();
+}
+
+public interface IButton
+{
+    void Render();
+}
+
+public interface ICheckbox
+{
+    void Check();
+}
+
+public class windowsButton : IButton
+{
+    public void Render()
+    {
+        Console.WriteLine("Rendering Windows Button");
+    }
+}
+public class macButton : IButton
+{
+    public void Render()
+    {
+        Console.WriteLine("Rendering Mac Button");
+    }
+}
+
+public class windowsCheckbox : ICheckbox
+{
+    public void Check()
+    {
+        Console.WriteLine("Check Windows Checkbox");
+    }
+}
+public class macCheckbox : ICheckbox
+{
+    public void Check()
+    {
+        Console.WriteLine("Check Mac Checkbox");
+    }
+}
+
+
+public class WindowsFactory : IFactory
+{
+    public IButton CreateButton() =>  new windowsButton();
+    public ICheckbox CreateCheckbox() => new windowsCheckbox();
+}
+
+public class MacFactory : IFactory
+{
+    public IButton CreateButton() => new macButton();
+    public ICheckbox CreateCheckbox() => new macCheckbox();
+}
+
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        IFactory factory = new WindowsFactory();
+        IButton button = factory.CreateButton();
+        ICheckbox checkbox = factory.CreateCheckbox();
+
+        button.Render();
+        checkbox.Check();
+
+        factory = new MacFactory();
+        button = factory.CreateButton();
+        checkbox = factory.CreateCheckbox();
+
+        button.Render();
+        checkbox.Check();
+    }
+}
+
+/*
+5.Prototype Pattern → Creates new objects by copying existing ones.
+
+Usecase: Object cloning, Performance optimization, Object configuration, Test data generation, Complex object creation.
+Advantages: Performance, Flexibility, Reusability, Separation of concerns, Testability.
+Disadvantages: Increased complexity, Overhead, Learning curve, Not suitable for simple object creation.
+
+
+*/
+public abstract class Shape
+{
+    public string Color { get; set; }
+    public abstract Shape Clone();
+}
+
+public class Circle : Shape
+{
+    public int Radius { get; set; }
+
+    public override Shape Clone()
+    {
+        return (Shape)this.MemberwiseClone();
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Circle originalCircle = new Circle { Color = "Red", Radius = 5 };
+        Circle clonedCircle = (Circle)originalCircle.Clone();
+
+        Console.WriteLine($"Original Circle: Color={originalCircle.Color}, Radius={originalCircle.Radius}");
+        Console.WriteLine($"Cloned Circle: Color={clonedCircle.Color}, Radius={clonedCircle.Radius}");
+    }
+}
+

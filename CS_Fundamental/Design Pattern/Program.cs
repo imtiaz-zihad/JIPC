@@ -1,9 +1,12 @@
 /*
 What is Design Pattern?
-Design Pattern is a reusable solution to a commonly occurring problem in software design. It is a general repeatable solution to a commonly occurring problem in software design. A design pattern isn't a finished design that can be transformed directly into code. It is a description or template for how to solve a problem that can be used in many different situations.  
+Design Pattern is a reusable solution to a commonly occurring problem in software design. It is a general repeatable solution to a commonly occurring problem in software design. A design pattern isn't a finished design that can be transformed directly into code. It is a description or template for how to solve a problem that can be used in many different situations. 
+
+
 Design patterns can speed up the development process by providing tested, proven development paradigms. Effective software design requires considering issues that may not become visible until later in the implementation. Reusing design patterns helps to prevent subtle issues that can cause major problems and improves code readability for coders and architects who are familiar with the patterns.
 
 Types are 3 types of Design Patterns:
+
 1. Creational Design Patterns: These patterns deal with object creation mechanisms, trying to create objects in a manner suitable to the situation. The basic form of object creation could lead to design problems or added complexity in the design. Creational design patterns solve this problem by somehow controlling this object creation. Examples include Singleton, Factory Method, Abstract Factory, Builder, and Prototype.
 
 2. Structural Design Patterns: These patterns deal with object composition, creating relationships between objects to form larger structures. They help ensure that if one part of a system changes, the entire system doesn't need to change. Examples include Adapter, Bridge, Composite, Decorator, Facade, Flyweight, and Proxy.
