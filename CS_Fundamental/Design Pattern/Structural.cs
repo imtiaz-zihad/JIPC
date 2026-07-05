@@ -66,3 +66,81 @@ class Program
          
     }
 } 
+
+
+
+// 2. Decorator Pattern → Adds new functionality to existing objects dynamically.
+/**
+  Usecase: Adding new features to objects without modifying their structure, Implementing cross-cutting concerns, Creating flexible and maintainable code, Logging, Caching , Validation Mechanisms.
+  Advantages:Follow OCP (Open/Closed Principle) & SRP (Single Responsibility Principle), Flexibility, Reusability, Simplified client code, Dynamic behavior modification.
+  Disadvantages: Increased complexity, Potential performance impact, Difficult to manage and debug.
+*/
+public interface ICoffee
+{
+    string GetDescription();
+    double GetCost();
+}
+
+public class SimpleCoffee : ICoffee
+{
+    public string GetDescription()
+    {
+        return "Simple Coffee";
+    }
+
+    public double GetCost()
+    {
+        return 2.0;
+    }
+}
+
+public abstract class CoffeeDecorator : ICoffee
+{
+    protected  ICoffee _decoratedCoffee;
+
+    public CoffeeDecorator(ICoffee coffee)
+    {
+        _decoratedCoffee = coffee;
+    }
+
+    public virtual string GetDescription()
+    {
+        return _decoratedCoffee.GetDescription();
+    }
+
+    public virtual double GetCost()
+    {
+        return _decoratedCoffee.GetCost();
+    }
+}
+
+public class MilkDecorator : CoffeeDecorator
+{
+    public MilkDecorator(ICoffee coffee) : base(coffee) { }
+
+    public override string GetDescription()
+    {
+        return _decoratedCoffee.GetDescription() + ", Milk";
+    }
+
+    public override double GetCost()
+    {
+        return _decoratedCoffee.GetCost() + 0.5;
+    }
+}
+
+public class SugarDecorator : CoffeeDecorator
+{
+    public SugarDecorator(ICoffee coffee) : base(coffee) { }
+
+    public override string GetDescription()
+    {
+        return _decoratedCoffee.GetDescription() + ", Sugar";
+    }
+
+    public override double GetCost()
+    {
+        return _decoratedCoffee.GetCost() + 0.2;
+    }
+}
+
