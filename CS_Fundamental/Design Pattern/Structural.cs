@@ -52,20 +52,20 @@ public class XMLToJsonAdapter : IDataProcessor
         string convertedJsonData = JsonConvert.SerializeXmlNode(xmlDoc);
         Console.WriteLine($"Processing adapted JSON data: {convertedJsonData}");
     }
-} 
+}
 class Program
 {
     static void Main(string[] args)
     {
         IDataProcessor jsonProcessor = new JsonDataProcessor();
         jsonProcessor.ProcessData("{\"Name\":\"Imtiaz\",\"Email\":\"mdimtiazzihad@gmail.com\"}");
-        
+
         IDataProcessor xmlToJsonAdapter = new XMLToJsonAdapter(new XMLDataProvider());
         xmlToJsonAdapter.ProcessData("");
 
-         
+
     }
-} 
+}
 
 
 
@@ -90,13 +90,13 @@ public class SimpleCoffee : ICoffee
 
     public double GetCost()
     {
-        return 2.0;
+        return 200.0;
     }
 }
 
 public abstract class CoffeeDecorator : ICoffee
 {
-    protected  ICoffee _decoratedCoffee;
+    protected ICoffee _decoratedCoffee;
 
     public CoffeeDecorator(ICoffee coffee)
     {
@@ -125,7 +125,7 @@ public class MilkDecorator : CoffeeDecorator
 
     public override double GetCost()
     {
-        return _decoratedCoffee.GetCost() + 0.5;
+        return _decoratedCoffee.GetCost() + 150;
     }
 }
 
@@ -144,3 +144,175 @@ public class SugarDecorator : CoffeeDecorator
     }
 }
 
+
+class Program2
+{
+    static void Main(string[] args)
+    {
+        ICoffee simpleCoffee = new SimpleCoffee();
+        Console.WriteLine($"{simpleCoffee.GetDescription()} - Cost: {simpleCoffee.GetCost()}");
+
+        ICoffee milkCoffee = new MilkDecorator(simpleCoffee);
+        Console.WriteLine($"{milkCoffee.GetDescription()} - Cost: {milkCoffee.GetCost()}");
+
+        ICoffee sugarMilkCoffee = new SugarDecorator(milkCoffee);
+        Console.WriteLine($"{sugarMilkCoffee.GetDescription()} - Cost: {sugarMilkCoffee.GetCost()}");
+    }
+}
+
+
+// 3. Proxy Pattern → Provides a surrogate or placeholder for another object to control access to it.
+
+/**
+  Usecase: Remote Proxy, Virtual Proxy, Protection Proxy, Caching Proxy, Logging and Monitoring.
+  Advantages: Controlled access, Lazy initialization, Security and access control, Performance optimization.
+  Disadvantages: Increased complexity, Potential performance overhead, Maintenance challenges.
+*/
+
+public interface IBankAccount
+{
+    void ShowBalance();
+    void Withdraw(double amount);
+}
+
+public class BankAccount : IBankAccount
+{
+    private double _balance;
+
+    public BankAccount(double balance)
+    {
+        _balance = balance;
+    }
+
+    public void ShowBalance()
+    {
+        Console.WriteLine($"Current Balance: {_balance}");
+    }
+
+    public void Withdraw(double amount)
+    {
+        _balance -= amount;
+        Console.WriteLine($"Withdrawn: {amount}. New Balance: {_balance}");
+    }
+}
+
+public class BankAccountproxy : IBankAccount
+{
+    private readonly BankAccount _bankAccount;
+    private readonly string _userRole;
+
+    public BankAccountProxy(double balance, string userRole)
+    {
+        _bankAccount = new BankAccount(balance);
+        _userRole = userRole;
+    }
+
+    public void ShowBalance()
+    {
+        _bankAccount.ShowBalance();
+    }
+
+    public void Withdraw(double amount)
+    {
+        if (_userRole != "Admin")
+        {
+            Console.WriteLine("Access Denied: Only Admin can withdraw funds.");
+            return;
+        }
+        _bankAccount.Withdraw(amount);
+    }
+}
+
+
+class Program3
+{
+    static void Main()
+    {
+        IBankAccount adminAccount = new BankAccountProxy(1000, "Admin");
+        adminAccount.ShowBalance();
+        adminAccount.Withdraw(200);
+
+        IBankAccount userAccount = new BankAccountProxy(1000, "User");
+        userAccount.ShowBalance();
+        userAccount.Withdraw(200);
+    }
+}
+
+// 4. Bridge Pattern → Decouples an abstraction from its implementation so that the two can vary independently. 
+/**
+  Usecase: Cross-platform development, GUI frameworks, Device drivers, Remote services, Database abstraction.
+  Advantages: Decoupling, Flexibility, Extensibility, Improved maintainability.
+  Disadvantages: Increased complexity, Potential performance overhead, Learning curve.
+*/
+
+
+public interface IPaymentGateway
+{
+    void ProcessPayment(double amount);
+}
+
+
+// Implementations of the IPaymentGateway interface
+public class PayPalPaymentGateway : IPaymentGateway
+{
+    public void ProcessPayment(double amount)
+    {
+        Console.WriteLine($"Processing payment of {amount} through PayPal.");
+    }
+}
+
+public class StripePaymentGateway : IPaymentGateway
+{
+    public void ProcessPayment(double amount)
+    {
+        Console.WriteLine($"Processing payment of {amount} through Stripe.");
+    }
+}
+
+// Abstraction 
+public abstract class Payment
+{
+    protected IPaymentGateway _paymentGateway;
+
+    public Payment(IPaymentGateway paymentGateway)
+    {
+        _paymentGateway = paymentGateway;
+    }
+
+    public abstract void MakePayment(double amount);
+}
+
+public class CardPayemnt : Payment
+{
+    public CardPayemnt(IPaymentGateway paymentGateway) : base(paymentGateway) { }
+
+    public override void MakePayment(double amount)
+    {
+        Console.WriteLine("Card Payment initiated.");
+        _paymentGateway.ProcessPayment(amount);
+    }
+}
+
+
+public class UPIpayment : Payment
+{
+    public UPIpayment(IPaymentGateway paymentGateway) : base(paymentGateway) { }
+
+    public override void MakePayment(double amount)
+    {
+        Console.WriteLine("UPI Payment initiated.");
+        _paymentGateway.ProcessPayment(amount);
+    }
+}
+
+class Program4
+{
+    static void Main()
+    {
+       Payment cardPayment = new CardPayemnt(new PayPalPaymentGateway());
+        cardPayment.MakePayment(1000);
+
+        Payment upiPayment = new UPIpayment(new StripePaymentGateway());
+        upiPayment.MakePayment(500);
+    }
+}
