@@ -316,3 +316,93 @@ class Program4
         upiPayment.MakePayment(500);
     }
 }
+
+// 5. Facade Pattern → Provides a simplified interface to a complex subsystem.
+
+/**
+  Usecase: Simplifying complex systems, Providing a unified interface, Hiding implementation details, Reducing dependencies, Improving code readability.
+  Advantages: Simplified interface, Reduced complexity, Improved maintainability, Encapsulation.
+  Disadvantages: Limited flexibility, Potential performance overhead, Maintenance challenges.
+*/  
+
+// Subsystem classes 1
+class InventoryService
+{
+    public void CheckStock(string product)
+    {
+        Console.WriteLine($"Checking stock for {product}.");
+        return true;
+    }
+}
+
+// Subsystem classes 2
+class PaymentService
+{
+    public void Pay(string user)
+    {
+        Console.WriteLine($"Processing payment for {user}.");
+    }
+}
+
+// Subsystem classes 3
+class ShippingService
+{
+    public void ShipProduct(string product)
+    {
+        Console.WriteLine($"Shipping {product}.");
+    }
+}
+
+// Subsystem classes 4
+class NotificationService
+{
+    public void SendNotification(string user)
+    {
+        Console.WriteLine($"Sending notification to {user}.");
+    }
+}
+
+
+// Facade class
+class OrderFacade
+{
+    private readonly InventoryService _inventoryService;
+    private readonly PaymentService _paymentService;
+    private readonly ShippingService _shippingService;
+    private readonly NotificationService _notificationService;
+
+    public OrderFacade()
+    {
+        _inventoryService = new InventoryService();
+        _paymentService = new PaymentService();
+        _shippingService = new ShippingService();
+        _notificationService = new NotificationService();
+    }
+
+    public void PlaceOrder(string product, string user)
+    {
+        if (_inventoryService.CheckStock(product))
+        {
+            _paymentService.Pay(user);
+            _shippingService.ShipProduct(product);
+            _notificationService.SendNotification(user);
+            Console.WriteLine("Order placed successfully.");
+        }
+        else
+        {
+            Console.WriteLine("Product is out of stock.");
+        }
+    }
+}
+
+
+class Program5
+{
+    static void Main()
+    {
+        OrderFacade orderFacade = new OrderFacade();
+        orderFacade.PlaceOrder("Laptop", "Imtiaz");
+    }
+} 
+
+// 32
