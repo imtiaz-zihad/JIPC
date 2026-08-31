@@ -405,4 +405,174 @@ class Program5
     }
 } 
 
-// 32
+
+// 6. Flyweight Pattern → Reduces the cost of creating and manipulating a large number of similar objects by sharing common data among them.
+/**
+  Usecase: Text rendering, Object pooling, Game development, Caching, Data compression.
+  Advantages: Memory efficiency, Improved performance, Reduced object creation overhead, Simplified object management.
+  Disadvantages: Increased complexity, Potential performance overhead, Maintenance challenges.
+*/
+
+class Tree
+{
+    private string type; // Intrinsic state (shared among multiple trees)
+
+    public Tree(string type)
+    {
+        this.type = type;
+    }
+    public void Display(int x, int y) // Extrinsic state (unique for each tree)
+    {
+        Console.WriteLine($"Displaying {type} tree at coordinates ({x}, {y}).");
+    }
+}
+
+class TreeFactory
+{
+    private static Dictionary<string, Tree> treePool = new Dictionary<string, Tree>();
+
+    public Tree GetTree(string type)
+    {
+        if (!treePool.ContainsKey(type))
+        {
+            treePool[type] = new Tree(type);
+            Console.WriteLine($"Creating new {type} tree.");
+        }
+        return treePool[type];
+    }
+}
+
+class Program6
+{
+    static void Main()
+    {
+        TreeFactory treeFactory = new TreeFactory();
+
+        Tree oakTree1 = treeFactory.GetTree("Oak");
+        oakTree1.Display(10, 20);
+
+        Tree oakTree2 = treeFactory.GetTree("Oak");
+        oakTree2.Display(30, 40);
+
+        Tree pineTree = treeFactory.GetTree("Pine");
+        pineTree.Display(50, 60);
+    }
+}
+
+
+// 7. Composite Pattern → Composes objects into tree structures to represent part-whole hierarchies.
+/**
+  Usecase: File systems, GUI components, Organizational structures, Graphics rendering, Hierarchical data representation.
+  Advantages: Simplified client code, Flexibility, Reusability, Improved maintainability.
+  Disadvantages: Increased complexity, Potential performance overhead, Maintenance challenges.
+*/
+
+public abstract class OrganizationUnit
+{
+    private string _name;
+    public OrganizationUnit(string name)
+    {
+        _name = name;
+    }
+
+    public abstract int GetBudget();
+
+    public virtual void AddUnit(OrganizationUnit unit)
+    {
+        Console.WriteLine($"Adding {unit}");
+    }
+
+    public virtual void RemoveUnit(OrganizationUnit unit)
+    {
+        Console.WriteLine($"Removing {unit}");
+    }
+}
+
+public class Employee : OrganizationUnit
+{
+    private int _salary;
+    private string _name;
+
+    public Employee(string name, int salary) : base(name)
+    {
+        _salary = salary;
+        _name = name;
+    }
+
+    public override int GetBudget()
+    {
+        Console.WriteLine($"Employee {_name} - Salary: {_salary}");
+        return _salary;
+    }
+}
+
+public class Department : OrganizationUnit
+{
+    private List<OrganizationUnit> _units = new List<OrganizationUnit>();
+    public string _name;
+    public Department(string name) : base(name)
+    {
+        _name = name;
+    }
+    public override void AddUnit(OrganizationUnit unit)
+    {
+        _units.Add(unit);
+    }
+
+    public override void RemoveUnit(OrganizationUnit unit)
+    {
+        _units.Remove(unit);
+    }
+
+    public override int GetBudget()
+    {
+        Console.WriteLine($" Department {_name} - Total Employee: {_units.Count}");
+        int totalBudget = 0; //_units.Sum(unit => unit.GetBudget());
+        foreach (var unit in _units)
+        {
+            totalBudget += unit.GetBudget();
+        }
+        Console.WriteLine($"Budget: {totalBudget}");
+        return totalBudget;
+    }
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        var john = new Employee("John", 25000);
+        var bob = new Employee("Bob", 30000);
+        var alice = new Employee("Alice", 35000);
+        var subhashis = new Employee("Subhashis", 40000);
+        
+        var devTeam =new Department("DevTeam");
+        var qaTeam = new Department("QATeam");
+        
+        var companyTeam = new Department("CompanyTeam");
+        
+        devTeam.AddUnit(john);
+        devTeam.AddUnit(bob);
+        
+        qaTeam.AddUnit(alice);
+        
+        companyTeam.AddUnit(subhashis);
+        companyTeam.AddUnit(devTeam);
+        companyTeam.AddUnit(qaTeam);
+        
+        //Console.WriteLine(companyTeam.GetBudget());
+        //Console.WriteLine(devTeam.GetBudget());
+        //Console.WriteLine(qaTeam.GetBudget());
+        Console.WriteLine(subhashis.GetBudget());
+    }
+}
+
+/*Company-
+    Subhashis
+    DevTeam
+        - John
+        - Bob 
+    QATeam
+        - Alice
+    
+*/
