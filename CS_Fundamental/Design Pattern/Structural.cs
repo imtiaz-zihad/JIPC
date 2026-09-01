@@ -328,7 +328,7 @@ class Program4
 // Subsystem classes 1
 class InventoryService
 {
-    public void CheckStock(string product)
+    public bool CheckStock(string product)
     {
         Console.WriteLine($"Checking stock for {product}.");
         return true;
@@ -567,12 +567,197 @@ public class Program
     }
 }
 
-/*Company-
-    Subhashis
-    DevTeam
-        - John
-        - Bob 
-    QATeam
-        - Alice
+/*
+
+অবশ্যই। তোমার জন্য **exam + interview friendly one-page style cheat sheet**:
+
+# 🔥 Structural Design Patterns — Cheat Sheet
+
+| # | Pattern          | Core Idea                              | কখন ব্যবহার করব?                                     | Keyword      |
+| - | ---------------- | -------------------------------------- | ---------------------------------------------------- | ------------ |
+| 1 | 🔌 **Adapter**   | One interface → another interface      | Existing/legacy class-এর interface compatible না হলে | **CONNECT**  |
+| 2 | 🎁 **Decorator** | Dynamically behavior add               | Existing object modify না করে নতুন feature add করতে  | **ADD**      |
+| 3 | 🛡️ **Proxy**    | Controls access to real object         | Security, permission, lazy loading, caching          | **CONTROL**  |
+| 4 | 🌉 **Bridge**    | Abstraction ↔ Implementation আলাদা করে | দুইটা hierarchy independently পরিবর্তন হলে           | **SEPARATE** |
+| 5 | 🏢 **Facade**    | Simple interface to complex system     | Multiple subsystem-এর complexity hide করতে           | **SIMPLIFY** |
+| 6 | 🪶 **Flyweight** | Share common data                      | অনেক similar object → memory save করতে               | **SHARE**    |
+| 7 | 🌳 **Composite** | Tree structure                         | Part + Whole একইভাবে treat করতে                      | **TREE**     |
+
+---
+
+## 🧠 One-Line Memory Trick
+
+```text
+Adapter    → CONNECT
+Decorator  → ADD
+Proxy      → CONTROL
+Bridge     → SEPARATE
+Facade     → SIMPLIFY
+Flyweight  → SHARE
+Composite  → TREE
+```
+
+---
+
+## 🔑 Pattern চিনবে যেভাবে
+
+### 🔌 Adapter
+
+**Question:** "Interface match করছে না?"
+
+```text
+A → Adapter → B
+```
+
+**Example:** XML → JSON interface adaptation
+
+---
+
+### 🎁 Decorator
+
+**Question:** "Existing object-এ dynamically feature যোগ করব?"
+
+```text
+Coffee
+ ↓
+Milk
+ ↓
+Sugar
+```
+
+**Example:** Logging, caching, extra features
+
+---
+
+### 🛡️ Proxy
+
+**Question:** "Real object-এ access control করতে হবে?"
+
+```text
+Client → Proxy → Real Object
+```
+
+**Example:** Admin-only Bank Account
+
+---
+
+### 🌉 Bridge
+
+**Question:** "দুইটা dimension independently change হবে?"
+
+```text
+Abstraction
+     ↓
+Implementation
+```
+
+**Example:**
+
+```text
+Payment: Card / UPI
+Gateway: Stripe / PayPal
+```
+
+---
+
+### 🏢 Facade
+
+**Question:** "অনেকগুলো complex subsystem-এর জন্য একটা simple API দরকার?"
+
+```text
+Client
+  ↓
+Facade
+  ↓
+A + B + C + D
+```
+
+**Example:** `PlaceOrder()`
+
+---
+
+### 🪶 Flyweight
+
+**Question:** "অনেক similar object, memory বেশি লাগছে?"
+
+```text
+Client 1 ─┐
+Client 2 ─┼→ Shared Object
+Client 3 ─┘
+```
+
+**Example:** 1 million trees in a game
+
+---
+
+### 🌳 Composite
+
+**Question:** "Tree / hierarchy আছে?"
+
+```text
+Department
+├── Employee
+├── Employee
+└── Department
+    ├── Employee
+    └── Employee
+```
+
+**Example:** File → Folder → File
+
+---
+
+# ⚔️ Most Confusing Pairs
+
+| Confusion                  | Difference                                                              |
+| -------------------------- | ----------------------------------------------------------------------- |
+| **Adapter vs Facade**      | Adapter = interface mismatch 🔌 / Facade = complexity hide 🏢           |
+| **Decorator vs Proxy**     | Decorator = add behavior 🎁 / Proxy = control access 🛡️                |
+| **Adapter vs Bridge**      | Adapter = existing mismatch / Bridge = design for independent variation |
+| **Singleton vs Flyweight** | Singleton = **ONE** object / Flyweight = **SHARED** objects             |
+| **Composite vs Decorator** | Composite = **TREE** / Decorator = **WRAP & ADD**                       |
+
+---
+
+# 🎯 Interview Trigger Words
+
+```text
+"Interface incompatible"
+        ↓
+     ADAPTER
+
+"Add functionality dynamically"
+        ↓
+    DECORATOR
+
+"Access control / permission"
+        ↓
+      PROXY
+
+"Two dimensions vary independently"
+        ↓
+      BRIDGE
+
+"Complex subsystem / simple API"
+        ↓
+     FACADE
+
+"Large number of similar objects"
+        ↓
+   FLYWEIGHT
+
+"Tree / hierarchy / part-whole"
+        ↓
+    COMPOSITE
+```
+
+## 🏆 Final Memory
+
+> **Connect → Add → Control → Separate → Simplify → Share → Tree**
+
+```text
+🔌 → 🎁 → 🛡️ → 🌉 → 🏢 → 🪶 → 🌳
+```
+
     
 */
